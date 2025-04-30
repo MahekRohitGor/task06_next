@@ -61,7 +61,7 @@ export default function LoginPage() {
                   <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
   
-                {errors.general && <div className="text-red-500 text-sm text-center">{errors.general}</div>}
+                {errors.errors && <div className="text-red-500 text-sm text-center">{errors.errors}</div>}
   
                 <button
                   type="submit"

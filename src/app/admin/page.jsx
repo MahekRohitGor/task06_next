@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
-  console.log("Session in admin", session);
 
   const router = useRouter();
   useEffect(() => {

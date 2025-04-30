@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import data from "../../../data/data";
 
 export const authOptions = {
     providers: [
@@ -15,12 +14,21 @@ export const authOptions = {
                 }
             },
             async authorize(credentials) {
-                const user = data.find((u) => u.email === credentials.email && u.password === credentials.password);
-                if (user) {
-                    return { id: user.id, email: user.email, name: user.name, role: user.role };
-                } else {
-                    return null;
+                const response = await fetch("http://localhost:3000/api/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: credentials.email,
+                        password: credentials.password
+                    })
+                });
+                const resp = await response.json();
+                if(resp.email != null && resp.name != null){
+                    return resp;
                 }
+                return null;
             }
         })
     ],
